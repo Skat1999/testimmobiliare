@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="TestImmobiliare — Gestione e valorizzazione del patrimonio immobiliare a Napoli."/>
+  <title>TestImmobiliare — Napoli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gd:#1a2e1f;--gm:#2d4a34;--ga:#3d6b47;
+  --gold:#b8976a;--goldl:#d4b48a;
+  --cream:#f5f2ec;--white:#fafaf8;
+  --td:#1a2e1f;--tm:#4a5e4f;--tl:#8a9e8f;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--white);color:var(--td);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ════ NAV ════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(250,250,248,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(26,46,31,.08);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 2px 32px rgba(26,46,31,.09)}
+.nav-inner{max-width:1320px;margin:0 auto;padding:0 60px;height:76px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:14px}
+.logo-mark{width:32px;height:32px;border:1.5px solid var(--gd);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:15px;font-weight:600;color:var(--gd)}
+.logo-wrap{display:flex;flex-direction:column;gap:1px}
+.logo-name{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--gd);letter-spacing:.03em;line-height:1}
+.logo-sub{font-size:8.5px;color:var(--tl);letter-spacing:.2em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:40px;list-style:none}
+.nav-links>li>a{font-size:13px;color:var(--tm);letter-spacing:.05em;transition:color .2s}
+.nav-links>li>a:hover{color:var(--gd)}
+/* dropdown */
+.nav-dd{position:relative}
+.dd-toggle{display:flex;align-items:center;gap:6px;cursor:pointer;font-family:var(--sans);font-size:13px;color:var(--tm);background:none;border:none;padding:0;letter-spacing:.05em;transition:color .2s}
+.dd-toggle:hover{color:var(--gd)}
+.dd-arrow{width:7px;height:7px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s;display:block}
+.nav-dd.open .dd-arrow{transform:rotate(225deg) translateY(2px)}
+.dd-menu{position:absolute;top:calc(100% + 20px);left:-28px;min-width:260px;background:var(--white);border:1px solid rgba(26,46,31,.1);box-shadow:0 12px 40px rgba(26,46,31,.12);opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .2s,transform .2s}
+.nav-dd.open .dd-menu{opacity:1;pointer-events:all;transform:translateY(0)}
+.dd-menu a{display:block;padding:18px 28px;border-bottom:1px solid rgba(26,46,31,.06);transition:background .15s}
+.dd-menu a:last-child{border-bottom:none}
+.dd-menu a:hover{background:var(--cream)}
+.dd-it{font-size:13px;color:var(--gd);display:block;margin-bottom:3px}
+.dd-is{font-size:10.5px;color:var(--tl);letter-spacing:.08em;display:block}
+.nav-cta{font-size:11.5px!important;font-weight:500!important;letter-spacing:.12em!important;text-transform:uppercase!important;color:var(--white)!important;background:var(--gd);padding:11px 26px!important;transition:background .2s!important}
+.nav-cta:hover{background:var(--gm)!important}
+/* burger */
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.burger span{display:block;width:24px;height:1.5px;background:var(--gd);transition:transform .3s,opacity .3s}
+.burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mob-menu{display:none;flex-direction:column;background:var(--white);border-top:1px solid rgba(26,46,31,.08);padding:12px 0 20px}
+.mob-menu.open{display:flex}
+.mob-menu a{padding:13px 40px;font-size:13.5px;color:var(--tm);border-bottom:1px solid rgba(26,46,31,.05)}
+.mob-menu a:hover{color:var(--gd);background:var(--cream)}
+.mob-sub{padding-left:60px!important;font-size:12px!important;color:var(--tl)!important}
+.mob-cta{margin:14px 40px 0!important;padding:13px!important;text-align:center;background:var(--gd);color:var(--white)!important;font-size:11.5px!important;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+
+/* ════ HERO ════ */
+#home{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:76px;overflow:hidden}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.45) saturate(.7)}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,rgba(20,38,24,.82) 0%,rgba(20,38,24,.45) 60%,transparent 100%)}
+.hero-cnt{position:relative;z-index:2;max-width:1320px;margin:0 auto;padding:80px 80px 160px;width:100%}
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:14px;opacity:0;animation:fadeUp .8s .2s forwards}
+.eyebrow::before{content:'';width:36px;height:1px;background:var(--gold);flex-shrink:0}
+.hero-title{font-family:var(--serif);font-size:clamp(44px,5.5vw,80px);font-weight:300;line-height:1.04;color:var(--white);margin-bottom:28px;max-width:720px;opacity:0;animation:fadeUp .8s .35s forwards}
+.hero-title em{font-style:italic;color:var(--goldl)}
+.hero-body{font-size:16px;font-weight:300;line-height:1.8;color:rgba(245,242,236,.72);max-width:480px;margin-bottom:52px;opacity:0;animation:fadeUp .8s .5s forwards}
+.hero-actions{display:flex;gap:20px;align-items:center;opacity:0;animation:fadeUp .8s .65s forwards}
+.btn-p{font-size:11.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gd);background:var(--gold);padding:16px 38px;transition:background .2s,transform .2s;display:inline-block}
+.btn-p:hover{background:var(--goldl);transform:translateY(-2px)}
+.btn-g{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,242,236,.6);display:flex;align-items:center;gap:8px;transition:color .2s}
+.btn-g:hover{color:var(--goldl)}
+.btn-g::after{content:'→';font-size:16px}
+/* stats bar */
+.hero-stats{position:absolute;bottom:0;left:0;right:0;z-index:3;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(20,38,24,.82);backdrop-filter:blur(14px);border-top:1px solid rgba(184,151,106,.2)}
+.hstat{padding:28px 40px;border-right:1px solid rgba(184,151,106,.14)}
+.hstat:last-child{border-right:none}
+.hstat-v{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--white);line-height:1;margin-bottom:5px}
+.hstat-v sup{font-size:17px;vertical-align:super}
+.hstat-l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,242,236,.48)}
+
+/* ════ SHARED ════ */
+section{padding:120px 0}
+.container{max-width:1320px;margin:0 auto;padding:0 80px}
+.sec-lbl{font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.sec-lbl::before{content:'';width:36px;height:1px;background:var(--gold)}
+.sec-title{font-family:var(--serif);font-size:clamp(30px,2.8vw,46px);font-weight:300;line-height:1.15;color:var(--gd);max-width:560px}
+.sec-title em{font-style:italic;color:var(--ga)}
+.sec-head{margin-bottom:68px}
+
+/* ════ IMMOBILI GALLERY ════ */
+#immobili{background:var(--cream);padding:120px 0}
+.gallery-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:56px}
+.gallery-intro p{font-size:15px;font-weight:300;color:var(--tm);line-height:1.8}
+/* mosaic */
+.mosaic{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:320px 260px;gap:10px}
+.mos{overflow:hidden;position:relative;cursor:pointer}
+.mos img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.4,0,.2,1);filter:saturate(.75) brightness(.88)}
+.mos:hover img{transform:scale(1.05);filter:saturate(.9) brightness(.95)}
+.mos-over{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,38,24,.72) 0%,transparent 55%);opacity:0;transition:opacity .3s}
+.mos:hover .mos-over{opacity:1}
+.mos-lbl{position:absolute;bottom:18px;left:20px;font-family:var(--serif);font-size:17px;font-weight:400;color:var(--white);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.mos:hover .mos-lbl{opacity:1;transform:translateY(0)}
+.mos-tag{position:absolute;top:14px;left:14px;font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gd);background:var(--gold);padding:4px 11px}
+.mos:nth-child(1){grid-area:1/1/2/2}
+.mos:nth-child(2){grid-area:1/2/2/3}
+.mos:nth-child(3){grid-area:1/3/2/4}
+.mos:nth-child(4){grid-area:2/1/3/2}
+.mos:nth-child(5){grid-area:2/2/3/4}
+
+/* ════ SERVIZI ════ */
+#servizi{background:var(--white)}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(26,46,31,.1);border:1px solid rgba(26,46,31,.1)}
+.srv-card{background:var(--white);transition:background .2s;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.srv-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .4s}
+.srv-card:hover{background:var(--cream)}
+.srv-card:hover::after{width:100%}
+/* image inside card */
+.srv-img{height:200px;overflow:hidden;flex-shrink:0}
+.srv-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.6) brightness(.75);transition:transform .5s,filter .5s}
+.srv-card:hover .srv-img img{transform:scale(1.05);filter:saturate(.8) brightness(.85)}
+.srv-body-wrap{padding:36px 36px 40px;display:flex;flex-direction:column;flex:1}
+.srv-num{font-family:var(--serif);font-size:42px;font-weight:300;color:rgba(26,46,31,.06);line-height:1;margin-bottom:16px}
+.srv-icon{width:40px;height:40px;background:var(--gd);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.srv-icon svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.srv-ttl{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--gd);margin-bottom:10px;line-height:1.2}
+.srv-txt{font-size:14px;font-weight:300;color:var(--tm);line-height:1.75}
+
+/* ════ CHI SIAMO ════ */
+#chi-siamo{background:var(--gd);padding:0;scroll-margin-top:76px}
+.tabs{display:flex;border-bottom:1px solid rgba(184,151,106,.2)}
+.tab-btn{padding:28px 56px;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,242,236,.4);cursor:pointer;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;transition:color .2s,border-color .2s}
+.tab-btn:hover{color:rgba(245,242,236,.7)}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-panel{display:none;padding:100px 0}
+.tab-panel.active{display:block}
+/* storia */
+.storia-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start}
+.s-lbl{color:var(--gold)!important}
+.s-lbl::before{background:var(--gold)!important}
+.s-title{font-family:var(--serif);font-size:clamp(28px,2.6vw,42px);font-weight:300;line-height:1.15;color:var(--white);margin-bottom:28px}
+.s-title em{font-style:italic;color:var(--goldl)}
+.s-p{font-size:15px;font-weight:300;line-height:1.85;color:rgba(245,242,236,.65);margin-bottom:16px}
+.sig{margin-top:44px;padding-top:28px;border-top:1px solid rgba(184,151,106,.2);display:flex;align-items:center;gap:18px}
+.sig-av{width:52px;height:52px;background:var(--gm);border:1px solid rgba(184,151,106,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:17px;color:var(--gold);flex-shrink:0}
+.sig-name{font-family:var(--serif);font-size:17px;color:var(--white);display:block}
+.sig-role{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+/* timeline */
+.tl{display:flex;flex-direction:column}
+.tl-item{display:grid;grid-template-columns:72px 1fr;gap:24px;padding:26px 0;border-bottom:1px solid rgba(184,151,106,.1)}
+.tl-item:last-child{border-bottom:none}
+.tl-y{font-family:var(--serif);font-size:13px;font-weight:500;color:var(--gold);padding-top:3px}
+.tl-h{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--white);margin-bottom:6px}
+.tl-p{font-size:13.5px;font-weight:300;color:rgba(245,242,236,.55);line-height:1.7}
+/* occupiamo */
+.occ-intro{text-align:center;max-width:680px;margin:0 auto 72px}
+.occ-intro .sec-lbl{justify-content:center}
+.occ-intro .sec-lbl::before{display:none}
+.occ-stitle{font-family:var(--serif);font-size:clamp(30px,2.8vw,46px);font-weight:300;line-height:1.15;color:var(--white);margin-bottom:16px}
+.occ-stitle em{font-style:italic;color:var(--goldl)}
+.occ-intro p{font-size:15px;font-weight:300;color:rgba(245,242,236,.6);line-height:1.8}
+.occ-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(184,151,106,.15);border:1px solid rgba(184,151,106,.15)}
+.occ-card{background:rgba(26,46,31,.6);padding:52px 48px;transition:background .2s;position:relative}
+.occ-card:hover{background:rgba(45,74,52,.7)}
+.occ-n{font-family:var(--serif);font-size:56px;font-weight:300;color:rgba(184,151,106,.08);position:absolute;top:20px;right:28px;line-height:1;pointer-events:none}
+.occ-ico{width:48px;height:48px;border:1px solid rgba(184,151,106,.3);display:flex;align-items:center;justify-content:center;margin-bottom:26px}
+.occ-ico svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.occ-h{font-family:var(--serif);font-size:24px;font-weight:400;color:var(--white);margin-bottom:14px;line-height:1.2}
+.occ-p{font-size:14px;font-weight:300;color:rgba(245,242,236,.58);line-height:1.8;margin-bottom:22px}
+.occ-tags{display:flex;flex-wrap:wrap;gap:8px}
+.occ-tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,151,106,.3);padding:5px 12px}
+
+/* ════ CONTATTI ════ */
+#contatti{background:var(--white);border-top:1px solid rgba(26,46,31,.08)}
+.cont-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start}
+.cont-desc{font-size:15px;font-weight:300;color:var(--tm);line-height:1.8;margin:26px 0 44px;max-width:400px}
+.cont-info{display:flex;flex-direction:column;gap:22px}
+.cont-item{display:flex;align-items:flex-start;gap:16px}
+.cont-ico{width:36px;height:36px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cont-ico svg{width:14px;height:14px;stroke:var(--gd);fill:none;stroke-width:1.5}
+.cont-lbl{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--tl);display:block;margin-bottom:3px}
+.cont-val{font-size:14px;color:var(--gd)}
+.form{display:flex;flex-direction:column;gap:18px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--tl)}
+.field input,.field select,.field textarea{font-family:var(--sans);font-size:14px;font-weight:300;color:var(--gd);background:var(--cream);border:1px solid rgba(26,46,31,.12);padding:13px 15px;outline:none;transition:border-color .2s,background .2s;resize:vertical;-webkit-appearance:none;appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ga);background:var(--white)}
+.field input::placeholder,.field textarea::placeholder{color:var(--tl)}
+.field textarea{min-height:120px}
+.form-btn{font-family:var(--sans);font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--white);background:var(--gd);border:none;padding:16px 38px;cursor:pointer;align-self:flex-start;transition:background .2s,transform .2s}
+.form-btn:hover{background:var(--gm);transform:translateY(-2px)}
+.form-msg{display:none;padding:16px 20px;font-size:14px;border-left:3px solid var(--ga)}
+
+/* ════ FOOTER ════ */
+footer{background:var(--gd);padding:72px 0 40px}
+.foot-top{display:grid;grid-template-columns:280px 1fr 1fr 1fr;gap:56px;padding-bottom:52px;border-bottom:1px solid rgba(184,151,106,.15);margin-bottom:36px}
+.foot-logo-name{font-family:var(--serif);font-size:20px;font-weight:500;color:var(--white);letter-spacing:.03em;line-height:1}
+.foot-logo-sub{font-size:8.5px;color:rgba(245,242,236,.35);letter-spacing:.2em;text-transform:uppercase}
+.foot-logo-mark{border-color:rgba(184,151,106,.35)!important;color:var(--gold)!important}
+.foot-brand p{font-size:13.5px;font-weight:300;color:rgba(245,242,236,.5);line-height:1.75;margin-top:18px}
+.foot-col h4{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.foot-col ul a{font-size:13.5px;font-weight:300;color:rgba(245,242,236,.5);transition:color .2s}
+.foot-col ul a:hover{color:rgba(245,242,236,.85)}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.foot-bot p{font-size:12px;color:rgba(245,242,236,.3);letter-spacing:.04em}
+.foot-links{display:flex;gap:22px}
+.foot-links a{font-size:12px;color:rgba(245,242,236,.3);letter-spacing:.04em;transition:color .2s}
+.foot-links a:hover{color:rgba(245,242,236,.6)}
+
+/* ════ ANIM ════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.fu.vis{opacity:1;transform:translateY(0)}
+
+/* ════ RESPONSIVE ════ */
+@media(max-width:1024px){
+  .nav-inner,.container{padding-left:40px;padding-right:40px}
+  .hero-cnt{padding:60px 40px 140px}
+  .storia-grid{grid-template-columns:1fr;gap:60px}
+  .foot-top{grid-template-columns:1fr 1fr;gap:40px}
+  .srv-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .burger{display:flex}
+  .hero-cnt{padding:60px 24px 120px}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .container{padding:0 24px}
+  section{padding:80px 0}
+  .gallery-intro{grid-template-columns:1fr}
+  .mosaic{grid-template-columns:1fr 1fr;grid-template-rows:220px 220px 220px;gap:8px}
+  .mos:nth-child(1){grid-area:1/1/2/3}
+  .mos:nth-child(2){grid-area:2/1/3/2}
+  .mos:nth-child(3){grid-area:2/2/3/3}
+  .mos:nth-child(4){grid-area:3/1/4/2}
+  .mos:nth-child(5){grid-area:3/2/4/3}
+  .srv-grid{grid-template-columns:1fr}
+  .occ-grid{grid-template-columns:1fr}
+  .cont-grid{grid-template-columns:1fr;gap:56px}
+  .form-row{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr;gap:32px}
+  .tabs .tab-btn{padding:20px 20px;font-size:11px}
+  .storia-grid{grid-template-columns:1fr}
+  .hstat{padding:22px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="logo">
+      <div class="logo-mark">T</div>
+      <div class="logo-wrap">
+        <span class="logo-name">TestImmobiliare</span>
+        <span class="logo-sub">Asset Management · Napoli</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#immobili">Immobili</a></li>
+      <li><a href="#servizi">Servizi</a></li>
+      <li class="nav-dd">
+        <button class="dd-toggle" aria-expanded="false">
+          Chi Siamo <span class="dd-arrow"></span>
+        </button>
+        <div class="dd-menu">
+          <a href="#chi-siamo" data-tab="storia">
+            <span class="dd-it">La Nostra Storia</span>
+            <span class="dd-is">Vent'anni di esperienza</span>
+          </a>
+          <a href="#chi-siamo" data-tab="occupiamo">
+            <span class="dd-it">Di Cosa Ci Occupiamo</span>
+            <span class="dd-is">Servizi e competenze</span>
+          </a>
+        </div>
+      </li>
+      <li><a href="#contatti" class="nav-cta">Contattaci</a></li>
+
+    </ul>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mob-menu" id="mob-menu">
+    <a href="#home">Home</a>
+    <a href="#immobili">Immobili</a>
+    <a href="#servizi">Servizi</a>
+    <a href="#chi-siamo" style="font-weight:500">Chi Siamo</a>
+    <a href="#chi-siamo" class="mob-sub" data-tab="storia">— La Nostra Storia</a>
+    <a href="#chi-siamo" class="mob-sub" data-tab="occupiamo">— Di Cosa Ci Occupiamo</a>
+    <a href="#contatti" class="mob-cta">Contattaci</a>
+  </div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section id="home">
+  <div class="hero-bg">
+    <!-- Dark moody luxury interior — tones match site palette -->
+    <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1920&q=85&sat=-30" alt="Interno luxury Napoli"/>
+  </div>
+  <div class="hero-cnt">
+    <p class="eyebrow">Asset Management Immobiliare · Napoli</p>
+    <h1 class="hero-title">Il tuo patrimonio,<br>la nostra <em>visione</em></h1>
+    <p class="hero-body">Gestiamo, valorizziamo e ottimizziamo portafogli immobiliari a Napoli e in tutta la Campania. La nostra sede è il punto di riferimento locale per investitori e privati.</p>
+    <div class="hero-actions">
+      <a href="#contatti" class="btn-p">Vieni in sede</a>
+      <a href="#servizi" class="btn-g">Scopri i servizi</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-v">2,4<sup>Mrd</sup></div><div class="hstat-l">Asset Under Management</div></div>
+    <div class="hstat"><div class="hstat-v">180<sup>+</sup></div><div class="hstat-l">Immobili Gestiti</div></div>
+    <div class="hstat"><div class="hstat-v">20</div><div class="hstat-l">Anni di Esperienza</div></div>
+    <div class="hstat"><div class="hstat-v">12%</div><div class="hstat-l">IRR Medio</div></div>
+  </div>
+</section>
+
+<!-- ════ GALLERY IMMOBILI ════ -->
+<section id="immobili">
+  <div class="container">
+    <div class="gallery-intro fu">
+      <div>
+        <p class="sec-lbl">Il Nostro Portafoglio</p>
+        <h2 class="sec-title">Residenziale, commerciale e <em>pregio storico</em></h2>
+      </div>
+      <p>Dal centro storico di Napoli alle colline di Posillipo, gestiamo immobili di pregio con cura artigianale e visione strategica. Ogni proprietà racconta una storia, noi la valorizziamo.</p>
+    </div>
+    <div class="mosaic">
+      <!-- All photos filtered dark/desaturated to match green palette -->
+      <div class="mos fu">
+        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&q=80" alt="Interno elegante"/>
+        <div class="mos-over"></div>
+        <span class="mos-tag">Residenziale</span>
+        <span class="mos-lbl">Appartamento di Pregio</span>
+      </div>
+      <div class="mos fu">
+        <img src="https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=600&q=80" alt="Camera luxury"/>
+        <div class="mos-over"></div>
+        <span class="mos-tag">Luxury</span>
+        <span class="mos-lbl">Suite Padronale</span>
+      </div>
+      <div class="mos fu">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Cucina moderna"/>
+        <div class="mos-over"></div>
+        <span class="mos-tag">Interiors</span>
+        <span class="mos-lbl">Living Moderno</span>
+      </div>
+      <div class="mos fu">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=80" alt="Esterno villa"/>
+        <div class="mos-over"></div>
+        <span class="mos-tag">Esterno</span>
+        <span class="mos-lbl">Villa Posillipo</span>
+      </div>
+      <div class="mos fu">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=80" alt="Esterno edificio"/>
+        <div class="mos-over"></div>
+        <span class="mos-tag">Commerciale</span>
+        <span class="mos-lbl">Palazzo Centro Storico</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SERVIZI ════ -->
+<section id="servizi">
+  <div class="container">
+    <div class="sec-head fu">
+      <p class="sec-lbl">I Nostri Servizi</p>
+      <h2 class="sec-title">Ogni <em>esigenza</em> immobiliare,<br>una soluzione su misura</h2>
+    </div>
+    <div class="srv-grid">
+
+      <!-- 1 Asset Management -->
+      <div class="srv-card fu">
+        <div class="srv-img">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Asset management ufficio scuro"/>
+        </div>
+        <div class="srv-body-wrap">
+          <div class="srv-num">01</div>
+          <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <h3 class="srv-ttl">Asset Management</h3>
+          <p class="srv-txt">Gestione strategica del portafoglio per massimizzare il rendimento nel lungo periodo. Analisi, posizionamento e ottimizzazione continua degli asset.</p>
+        </div>
+      </div>
+
+      <!-- 2 Property Management -->
+      <div class="srv-card fu">
+        <div class="srv-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Chiavi immobile"/>
+        </div>
+        <div class="srv-body-wrap">
+          <div class="srv-num">02</div>
+          <div class="srv-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+          <h3 class="srv-ttl">Property Management</h3>
+          <p class="srv-txt">Gestione operativa completa: locazioni, manutenzione programmata, rapporti con i conduttori e ottimizzazione dei costi correnti.</p>
+        </div>
+      </div>
+
+      <!-- 3 Advisory -->
+      <div class="srv-card fu">
+        <div class="srv-img">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80" alt="Consulenza immobiliare"/>
+        </div>
+        <div class="srv-body-wrap">
+          <div class="srv-num">03</div>
+          <div class="srv-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <h3 class="srv-ttl">Advisory & Valorizzazione</h3>
+          <p class="srv-txt">Consulenza per sviluppo, riconversione e repositioning. Identifichiamo le migliori opportunità e accompagniamo l'intero processo di exit.</p>
+        </div>
+      </div>
+
+      <!-- 4 Due Diligence -->
+      <div class="srv-card fu">
+        <div class="srv-img">
+          <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80" alt="Documenti analisi"/>
+        </div>
+        <div class="srv-body-wrap">
+          <div class="srv-num">04</div>
+          <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+          <h3 class="srv-ttl">Due Diligence</h3>
+          <p class="srv-txt">Analisi tecnica, legale e finanziaria approfondita. Valutiamo il rischio e identifichiamo ogni criticità prima dell'acquisizione.</p>
+        </div>
+      </div>
+
+      <!-- 5 Fondi Immobiliari -->
+      <div class="srv-card fu">
+        <div class="srv-img">
+          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80" alt="Edificio finanziario"/>
+        </div>
+        <div class="srv-body-wrap">
+          <div class="srv-num">05</div>
+          <div class="srv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+          <h3 class="srv-ttl">Gestione Fondi Immobiliari</h3>
+          <p class="srv-txt">Strutturazione e gestione di FIA riservati. Costruzione del portafoglio, relazioni con gli investitori e reporting regolamentare.</p>
+        </div>
+      </div>
+
+      <!-- 6 Family Office -->
+      <div class="srv-card fu">
+        <div class="srv-img">
+          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80" alt="Appartamento lusso interno"/>
+        </div>
+        <div class="srv-body-wrap">
+          <div class="srv-num">06</div>
+          <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <h3 class="srv-ttl">Family Office RE</h3>
+          <p class="srv-txt">Servizio dedicato a grandi patrimoni privati: pianificazione patrimoniale, ottimizzazione fiscale e pianificazione generazionale.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ CHI SIAMO ════ -->
+<section id="chi-siamo">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="storia">La Nostra Storia</button>
+    <button class="tab-btn" data-tab="occupiamo">Di Cosa Ci Occupiamo</button>
+  </div>
+
+  <!-- Storia -->
+  <div class="tab-panel active" id="panel-storia">
+    <div class="container">
+      <div class="storia-grid">
+        <div class="fu">
+          <p class="sec-lbl s-lbl">La Nostra Storia</p>
+          <h2 class="s-title">Vent'anni di <em>esperienza</em><br>al servizio del vostro patrimonio</h2>
+          <p class="s-p">Nati a Napoli nel 2004, abbiamo costruito la nostra reputazione sulla conoscenza profonda del territorio campano e sulla capacità di cogliere opportunità dove altri vedono complessità.</p>
+          <p class="s-p">Il nostro ufficio nel cuore di Napoli è il punto di incontro tra clienti, investitori e il mercato immobiliare locale. Operiamo con rigore metodologico e relazioni di lungo periodo.</p>
+          <p class="s-p">Oggi gestiamo oltre 2,4 miliardi di euro di patrimonio, con una presenza radicata su tutto il territorio campano e una crescente attività nelle principali città italiane.</p>
+          <div class="sig">
+            <div class="sig-av">GP</div>
+            <div>
+              <span class="sig-name">Giovanni Palmieri</span>
+              <span class="sig-role">Fondatore & CEO</span>
+            </div>
+          </div>
+        </div>
+        <div class="tl fu">
+          <div class="tl-item"><span class="tl-y">2004</span><div><div class="tl-h">Fondazione a Napoli</div><p class="tl-p">Apertura della sede storica al centro di Napoli con un team di 8 professionisti.</p></div></div>
+          <div class="tl-item"><span class="tl-y">2008</span><div><div class="tl-h">Autorizzazione Banca d'Italia</div><p class="tl-p">Licenza di gestore FIA riservati e lancio del primo fondo immobiliare istituzionale.</p></div></div>
+          <div class="tl-item"><span class="tl-y">2013</span><div><div class="tl-h">Espansione regionale</div><p class="tl-p">Apertura degli uffici di Salerno e Caserta. Il patrimonio supera il miliardo di euro.</p></div></div>
+          <div class="tl-item"><span class="tl-y">2019</span><div><div class="tl-h">Presenza nazionale</div><p class="tl-p">Prime operazioni a Roma e Milano. Partnership strategiche con operatori nazionali.</p></div></div>
+          <div class="tl-item"><span class="tl-y">2024</span><div><div class="tl-h">Vent'anni di eccellenza</div><p class="tl-p">2,4 miliardi di AUM, oltre 180 immobili gestiti, 65 professionisti nel team.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Occupiamo -->
+  <div class="tab-panel" id="panel-occupiamo">
+    <div class="container">
+      <div class="occ-intro fu">
+        <p class="sec-lbl">Di Cosa Ci Occupiamo</p>
+        <h2 class="occ-stitle">Una piattaforma <em>integrata</em><br>per ogni esigenza</h2>
+        <p>Dall'origination alla valorizzazione, dalla gestione corrente all'exit: copriamo l'intero ciclo di vita dell'investimento immobiliare.</p>
+      </div>
+      <div class="occ-grid">
+        <div class="occ-card fu">
+          <span class="occ-n">01</span>
+          <div class="occ-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <h3 class="occ-h">Investimento & Acquisizione</h3>
+          <p class="occ-p">Identifichiamo le migliori opportunità sul mercato campano e nazionale. Dall'origination alla chiusura, ogni passo è guidato da analisi rigorose.</p>
+          <div class="occ-tags"><span class="occ-tag">Analisi di mercato</span><span class="occ-tag">Sourcing</span><span class="occ-tag">Strutturazione</span></div>
+        </div>
+        <div class="occ-card fu">
+          <span class="occ-n">02</span>
+          <div class="occ-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <h3 class="occ-h">Gestione Attiva</h3>
+          <p class="occ-p">Monitoriamo le performance con reporting avanzato e interveniamo proattivamente per massimizzare il valore nel lungo periodo.</p>
+          <div class="occ-tags"><span class="occ-tag">Reporting ESG</span><span class="occ-tag">KPI monitoring</span><span class="occ-tag">Risk management</span></div>
+        </div>
+        <div class="occ-card fu">
+          <span class="occ-n">03</span>
+          <div class="occ-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3 class="occ-h">Compliance & Governance</h3>
+          <p class="occ-p">Piena conformità normativa AIFMD, rapporti con Banca d'Italia e Consob, governance interna trasparente e investor relations di qualità.</p>
+          <div class="occ-tags"><span class="occ-tag">AIFMD</span><span class="occ-tag">Banca d'Italia</span><span class="occ-tag">Investor relations</span></div>
+        </div>
+        <div class="occ-card fu">
+          <span class="occ-n">04</span>
+          <div class="occ-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+          <h3 class="occ-h">Strategie ESG</h3>
+          <p class="occ-p">Integriamo i criteri ESG in ogni fase, puntiamo alle certificazioni LEED e BREEAM e rispondiamo alle crescenti esigenze degli investitori istituzionali.</p>
+          <div class="occ-tags"><span class="occ-tag">SFDR Art. 8</span><span class="occ-tag">LEED</span><span class="occ-tag">Carbon neutral</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ════ CONTATTI ════ -->
+<section id="contatti">
+  <div class="container">
+    <div class="cont-grid">
+      <div class="fu">
+        <p class="sec-lbl">Vieni a Trovarci</p>
+        <h2 class="sec-title">Siamo a <em>Napoli</em>,<br>pronti ad ascoltarti</h2>
+        <p class="cont-desc">Il nostro ufficio è aperto al pubblico. Che tu abbia un singolo immobile o un portafoglio complesso, vieni a parlarci di persona.</p>
+        <div class="cont-info">
+          <div class="cont-item">
+            <div class="cont-ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><span class="cont-lbl">Sede</span><span class="cont-val">Via Toledo 156, 80132 Napoli</span></div>
+          </div>
+          <div class="cont-item">
+            <div class="cont-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.86 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012.77 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.06-1.06a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.27z"/></svg></div>
+            <div><span class="cont-lbl">Telefono</span><span class="cont-val">+39 081 123 4567</span></div>
+          </div>
+          <div class="cont-item">
+            <div class="cont-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><span class="cont-lbl">Email</span><span class="cont-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87eee9e1e8c7f3e2f4f3eeeaeae8e5eeebeee6f5e2a9eef3">[email&#160;protected]</a></span></div>
+          </div>
+          <div class="cont-item">
+            <div class="cont-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><span class="cont-lbl">Orari</span><span class="cont-val">Lun–Ven 9:00–18:00</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="fu">
+        <form class="form" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="field"><label>Nome e Cognome *</label><input type="text" name="name" placeholder="Mario Rossi" required></div>
+            <div class="field"><label>Email *</label><input type="email" name="email" placeholder="mario@esempio.it" required></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Telefono</label><input type="tel" name="phone" placeholder="+39 081 ..."></div>
+            <div class="field">
+              <label>Oggetto</label>
+              <select name="subject">
+                <option value="">Seleziona...</option>
+                <option>Vendita immobile</option>
+                <option>Acquisto immobile</option>
+                <option>Gestione patrimonio</option>
+                <option>Consulenza investimento</option>
+                <option>Altro</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label>Messaggio *</label><textarea name="message" placeholder="Come possiamo aiutarti?" required></textarea></div>
+          <div class="form-msg" id="form-msg"></div>
+          <button type="submit" class="form-btn">Invia la richiesta</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="logo">
+          <div class="logo-mark foot-logo-mark" style="border-color:rgba(184,151,106,.35);color:var(--gold)">T</div>
+          <div class="logo-wrap">
+            <span class="foot-logo-name">TestImmobiliare</span>
+            <span class="foot-logo-sub">Asset Management · Napoli</span>
+          </div>
+        </div>
+        <p>Partner strategico nella gestione e valorizzazione del patrimonio immobiliare a Napoli e in tutta la Campania.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Navigazione</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#immobili">Immobili</a></li>
+          <li><a href="#servizi">Servizi</a></li>
+          <li><a href="#chi-siamo" data-tab="storia">La Nostra Storia</a></li>
+          <li><a href="#chi-siamo" data-tab="occupiamo">Di Cosa Ci Occupiamo</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Servizi</h4>
+        <ul>
+          <li><a href="#servizi">Asset Management</a></li>
+          <li><a href="#servizi">Property Management</a></li>
+          <li><a href="#servizi">Advisory</a></li>
+          <li><a href="#servizi">Due Diligence</a></li>
+          <li><a href="#servizi">Family Office RE</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Contatti</h4>
+        <ul>
+          <li><a href="#">Via Toledo 156, Napoli</a></li>
+          <li><a href="tel:+39081234567">+39 081 123 4567</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#adc4c3cbc2edd9c8ded9c4c0c0c2cfc4c1c4ccdfc883c4d9"><span class="__cf_email__" data-cfemail="046d6a626b44706177706d69696b666d686d6576612a6d70">[email&#160;protected]</span></a></li>
+          <li><a href="#">Lun–Ven 9:00–18:00</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <p>&copy; 2025 TestImmobiliare S.r.l. — P.IVA 12345678901 · Napoli</p>
+      <div class="foot-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Note Legali</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  // Navbar scroll
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));
+      if(!t)return;
+      e.preventDefault();
+      window.scrollTo({top:t.getBoundingClientRect().top+scrollY-76,behavior:'smooth'});
+      mob.classList.remove('open');brg.classList.remove('open');
+    });
+  });
+
+  // Dropdown
+  document.querySelectorAll('.nav-dd').forEach(dd=>{
+    const btn=dd.querySelector('.dd-toggle');
+    const open=()=>{dd.classList.add('open');btn.setAttribute('aria-expanded','true')};
+    const close=()=>{dd.classList.remove('open');btn.setAttribute('aria-expanded','false')};
+    dd.addEventListener('mouseenter',open);
+    dd.addEventListener('mouseleave',close);
+    btn.addEventListener('click',()=>dd.classList.contains('open')?close():open());
+    dd.querySelectorAll('[data-tab]').forEach(l=>{
+      l.addEventListener('click',e=>{
+        e.preventDefault();switchTab(l.dataset.tab);
+        const s=document.getElementById('chi-siamo');
+        window.scrollTo({top:s.getBoundingClientRect().top+scrollY-76,behavior:'smooth'});
+        close();
+      });
+    });
+  });
+
+  // Burger
+  const brg=document.getElementById('burger');
+  const mob=document.getElementById('mob-menu');
+  brg.addEventListener('click',()=>{const o=mob.classList.toggle('open');brg.classList.toggle('open',o)});
+  mob.querySelectorAll('[data-tab]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();switchTab(a.dataset.tab);
+      const s=document.getElementById('chi-siamo');
+      window.scrollTo({top:s.getBoundingClientRect().top+scrollY-76,behavior:'smooth'});
+    });
+  });
+
+  // Footer tab links
+  document.querySelectorAll('.foot-col [data-tab]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();switchTab(a.dataset.tab);
+      const s=document.getElementById('chi-siamo');
+      window.scrollTo({top:s.getBoundingClientRect().top+scrollY-76,behavior:'smooth'});
+    });
+  });
+
+  // Tabs
+  function switchTab(id){
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
+    document.querySelectorAll('.tab-panel').forEach(p=>{
+      const on=p.id==='panel-'+id;
+      p.classList.toggle('active',on);
+      p.style.display=on?'block':'none';
+      if(on)p.querySelectorAll('.fu').forEach(el=>{el.classList.remove('vis');setTimeout(()=>el.classList.add('vis'),60)});
+    });
+  }
+  document.querySelectorAll('.tab-panel:not(.active)').forEach(p=>p.style.display='none');
+  document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+
+  // ── COUNTER ANIMATION ──
+  const statsConfig=[
+    {sel:'.hstat:nth-child(1) .hstat-v', target:2.4,  suffix:'Mrd', dec:1, sup:true},
+    {sel:'.hstat:nth-child(2) .hstat-v', target:180,  suffix:'+',   dec:0, sup:true},
+    {sel:'.hstat:nth-child(3) .hstat-v', target:20,   suffix:'',    dec:0, sup:false},
+    {sel:'.hstat:nth-child(4) .hstat-v', target:12,   suffix:'%',   dec:0, sup:false},
+  ];
+  function animateCounter(el,target,suffix,dec,useSup,dur=3200){
+    if(el._raf) cancelAnimationFrame(el._raf);
+    const t0=performance.now();
+    const html=s=>useSup?s+`<sup>${suffix}</sup>`:s+suffix;
+    function step(now){
+      const p=Math.min((now-t0)/dur,1);
+      const e=1-Math.pow(1-p,4);
+      el.innerHTML=html((e*target).toFixed(dec).replace('.',','));
+      if(p<1){ el._raf=requestAnimationFrame(step); }
+      else { el._raf=null; }
+    }
+    el._raf=requestAnimationFrame(step);
+  }
+  function runCounters(){
+    statsConfig.forEach(c=>{
+      const el=document.querySelector(c.sel);
+      if(el)animateCounter(el,c.target,c.suffix,c.dec,c.sup);
+    });
+  }
+  // Trigger on scroll into view
+  const statsBar=document.querySelector('.hero-stats');
+  let firstDone=false;
+  if(statsBar){
+    new IntersectionObserver(entries=>{
+      if(entries[0].isIntersecting&&!firstDone){firstDone=true;runCounters();}
+    },{threshold:0.5}).observe(statsBar);
+  }
+  window.addEventListener('load',()=>{
+    const r=statsBar?.getBoundingClientRect();
+    if(r&&r.top<window.innerHeight&&!firstDone){firstDone=true;runCounters();}
+  });
+  // Re-trigger on hover of each stat
+  document.querySelectorAll('.hstat').forEach((stat,i)=>{
+    stat.addEventListener('mouseenter',()=>{
+      const c=statsConfig[i];
+      const el=stat.querySelector('.hstat-v');
+      if(el)animateCounter(el,c.target,c.suffix,c.dec,c.sup);
+    });
+  });
+
+  // Scroll animations
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}});
+  },{threshold:0.1});
+  document.querySelectorAll('.fu').forEach((el,i)=>{
+    el.style.transitionDelay=(i%4)*0.09+'s';
+    io.observe(el);
+  });
+
+  // Form — Formspree
+  const form=document.getElementById('contact-form');
+  const msg=document.getElementById('form-msg');
+  const btn=form.querySelector('.form-btn');
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const name=form.querySelector('[name="name"]').value.trim();
+    const email=form.querySelector('[name="email"]').value.trim();
+    const text=form.querySelector('[name="message"]').value.trim();
+    if(!name||!email||!text){show('Compila tutti i campi obbligatori (*).', false);return}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){show('Email non valida.',false);return}
+    btn.disabled=true;btn.textContent='Invio in corso…';
+    try{
+      const res=await fetch('https://formspree.io/f/xdalqega',{
+        method:'POST',
+        headers:{'Accept':'application/json','Content-Type':'application/json'},
+        body:JSON.stringify({
+          nome: name,
+          email: email,
+          telefono: form.querySelector('[name="phone"]').value.trim(),
+          oggetto: form.querySelector('[name="subject"]').value,
+          messaggio: text
+        })
+      });
+      if(res.ok){form.reset();show('Grazie! Ti contatteremo a breve.',true);}
+      else{show('Errore nell\'invio. Riprova più tardi.',false);}
+    }catch{
+      show('Errore di rete. Riprova più tardi.',false);
+    }
+    btn.disabled=false;btn.textContent='Invia la richiesta';
+  });
+  function show(t,ok){
+    msg.textContent=t;msg.style.display='block';
+    msg.style.background=ok?'rgba(61,107,71,.08)':'rgba(192,57,43,.08)';
+    msg.style.borderLeftColor=ok?'var(--ga)':'#c0392b';
+    msg.style.color=ok?'var(--gd)':'#c0392b';
+    setTimeout(()=>msg.style.display='none',6000);
+  }
+})();
+</script>
+</body>
+</html>
