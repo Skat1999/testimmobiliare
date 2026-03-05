@@ -442,10 +442,10 @@ display:block;
 }
 @media(max-width:768px){
   .nav-links,.nav-cta{display:none}
-  .burger{display:flex;margin-left:auto}
-  .nav-inner{position:relative;padding-left:0 !important;padding-right:14px !important;justify-content:flex-start}
-  .nav-logo-img{position:relative;left:-18px;margin-left:0 !important}
-  .nav-logo-image{transform:none;height:138px}
+  .  .burger{display:flex;margin-left:auto}
+  .nav-inner{position:relative;padding-left:max(0px,env(safe-area-inset-left)) !important;padding-right:14px !important;justify-content:flex-start}
+  .nav-logo-img{position:relative;left:-42px !important;margin-left:0 !important}
+  .nav-logo-image{position:relative;left:-8px !important;transform:none;height:138px}
   .hero-cnt{padding:160px 24px 100px}
   .hero-row{
 display:flex;
