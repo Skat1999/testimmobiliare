@@ -907,23 +907,13 @@ function setCookie(val){
     value: val,
     expiry: Date.now() + 31536000000
   };
-
   localStorage.setItem('cookie_consent', JSON.stringify(consent));
   document.getElementById('cookie-banner').style.display='none';
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
-  const consent = localStorage.getItem('cookie_consent');
-
-  if(!consent){
-    document.getElementById('cookie-banner').style.display='flex';
-    return;
-  }
-
-  const data = JSON.parse(consent);
-
-  if(Date.now() > data.expiry){
-    localStorage.removeItem('cookie_consent');
+  const consent = JSON.parse(localStorage.getItem('cookie_consent'));
+  if(!consent || Date.now() > consent.expiry){
     document.getElementById('cookie-banner').style.display='flex';
   }
 });
