@@ -510,7 +510,13 @@ display:block;
 
 
 /* ════ SCROLL REVEAL ════ */
-.sr { will-change: opacity, transform; }
+.sr { will-change: opacity, transform; opacity: 0; transition: opacity 0.75s cubic-bezier(.4,0,.2,1), transform 0.75s cubic-bezier(.4,0,.2,1); }
+.sr.sr-up    { transform: translateY(48px); }
+.sr.sr-down  { transform: translateY(-48px); }
+.sr.sr-left  { transform: translateX(-56px); }
+.sr.sr-right { transform: translateX(56px); }
+.sr.sr-scale { transform: scale(0.88); }
+.sr.sr-vis   { opacity: 1 !important; transform: none !important; }
 .foot-col ul li a{color:inherit;text-decoration:none;}
 
 footer, footer *{
@@ -815,7 +821,7 @@ margin-top:8px !important; /* closer to title */
           </div>
           <div class="cont-item">
             <div class="cont-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-            <div><span class="cont-lbl">Email</span><span class="cont-val"><a href="mailto:info@mgmgestioni.it" style="color:inherit;text-decoration:none;font-weight:300;">info@mgmgestioni.it</a></span></div>
+            <div><span class="cont-lbl">Email</span><span class="cont-val"><a href="/cdn-cgi/l/email-protection#365f585059765b515b515345425f59585f185f42" style="color:inherit;text-decoration:none;font-weight:300;"><span class="__cf_email__" data-cfemail="5b32353d341b363c363c3e282f3234353275322f">[email&#160;protected]</span></a></span></div>
           </div>
           <div class="cont-item">
             <div class="cont-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
@@ -879,7 +885,7 @@ margin-top:8px !important; /* closer to title */
 <div class="cursor-dot" id="cur-dot"></div>
 <div class="cursor-ring" id="cur-ring"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── CUSTOM CURSOR ──
 const dot=document.getElementById('cur-dot');
 const ring=document.getElementById('cur-ring');
@@ -954,7 +960,7 @@ window.addEventListener('DOMContentLoaded',()=>{
           <ul>
             <li><a href="https://maps.google.com/?q=Via+Pisciarelli+79+Pozzuoli+80078" target="_blank">Via Pisciarelli 79<br>80078 Napoli</a></li>
             <li><a href="tel:+390816397509">081 639 7509</a></li>
-            <li><a href="mailto:info@mgmgestioni.it" style="color:inherit;text-decoration:none;font-weight:300;">info@mgmgestioni.it</a></li>
+            <li><a href="/cdn-cgi/l/email-protection#167f787079567b717b717365627f79787f387f62" style="color:inherit;text-decoration:none;font-weight:300;"><span class="__cf_email__" data-cfemail="8fe6e1e9e0cfe2e8e2e8eafcfbe6e0e1e6a1e6fb">[email&#160;protected]</span></a></li>
             <li><a href="#">Lun–Ven · 9:00–19:00</a></li>
           </ul>
         </div>
@@ -963,7 +969,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   </div>
   <div class="container">
     <div class="foot-bot">
-      <p>&copy; 2025 MGM Asset Management S.r.l. · P.IVA 10484081210 · Sede legale: Napoli (NA) · PEC: mgm@pec.mgmassetmanagement.it · Tutti i diritti riservati
+      <p>&copy; 2025 MGM Asset Management S.r.l. · P.IVA 10484081210 · Sede legale: Napoli (NA) · PEC: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="630e040e231306004d0e040e02101006170e020d0204060e060d174d0a17">[email&#160;protected]</a> · Tutti i diritti riservati
 </p></p>
       <div class="foot-links">
         <a href="privacy.html">Privacy Policy</a>
@@ -974,7 +980,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
   // Navbar scroll
   const nav=document.getElementById('nav');
@@ -1231,7 +1237,10 @@ window.addEventListener('DOMContentLoaded',()=>{
 
   // Scroll animations
   const io=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}});
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('vis')}
+      else{e.target.classList.remove('vis')}
+    });
   },{threshold:0.1});
   document.querySelectorAll('.fu').forEach((el,i)=>{
     el.style.transitionDelay=(i%4)*0.09+'s';
@@ -1347,40 +1356,70 @@ window.addEventListener('DOMContentLoaded',()=>{
 (function(){
   // Elements to animate with their direction
   const targets = [
-    { sel: '#vantaggi .sec-title, #vantaggi .sec-sub', dir: 'up' },
-    { sel: '.van-card:nth-child(odd)', dir: 'left' },
-    { sel: '.van-card:nth-child(even)', dir: 'right' },
-    { sel: '#servizi .sec-title, #servizi .sec-sub', dir: 'up' },
-    { sel: '.srv-card', dir: 'up' },
-    { sel: '#contatti .sec-title, #contatti .sec-sub', dir: 'up' },
-    { sel: '.contact-form', dir: 'left' },
-    { sel: '.contact-map', dir: 'right' },
-    { sel: '.foot-logo-block', dir: 'left' },
-    { sel: '.foot-cols', dir: 'right' },
+    { sel: '#vantaggi .sec-lbl',                    dir: 'up',    delay: 0 },
+    { sel: '#vantaggi .sec-title',                  dir: 'up',    delay: 0.1 },
+    { sel: '#vantaggi .sec-sub',                    dir: 'up',    delay: 0.15 },
+    { sel: '.van-card:nth-child(odd)',              dir: 'left',  delay: 0 },
+    { sel: '.van-card:nth-child(even)',             dir: 'right', delay: 0.08 },
+    { sel: '#immobili .sec-lbl',                    dir: 'up',    delay: 0 },
+    { sel: '#immobili .sec-title',                  dir: 'up',    delay: 0.1 },
+    { sel: '.gallery-intro p',                      dir: 'up',    delay: 0.2 },
+    { sel: '.mos:nth-child(1)',                     dir: 'up',    delay: 0 },
+    { sel: '.mos:nth-child(2)',                     dir: 'up',    delay: 0.1 },
+    { sel: '.mos:nth-child(3)',                     dir: 'up',    delay: 0.18 },
+    { sel: '.mos:nth-child(4)',                     dir: 'up',    delay: 0.08 },
+    { sel: '.mos:nth-child(5)',                     dir: 'up',    delay: 0.16 },
+    { sel: '#servizi .sec-lbl',                     dir: 'up',    delay: 0 },
+    { sel: '#servizi .sec-title',                   dir: 'up',    delay: 0.1 },
+    { sel: '#servizi .sec-sub',                     dir: 'up',    delay: 0.15 },
+    { sel: '.srv-card:nth-child(1)',                dir: 'up',    delay: 0 },
+    { sel: '.srv-card:nth-child(2)',                dir: 'up',    delay: 0.1 },
+    { sel: '.srv-card:nth-child(3)',                dir: 'up',    delay: 0.2 },
+    { sel: '.srv-card:nth-child(4)',                dir: 'up',    delay: 0.06 },
+    { sel: '.srv-card:nth-child(5)',                dir: 'up',    delay: 0.14 },
+    { sel: '.srv-card:nth-child(6)',                dir: 'up',    delay: 0.22 },
+    { sel: '#chi-siamo .tabs',                      dir: 'up',    delay: 0 },
+    { sel: '.storia-grid',                          dir: 'up',    delay: 0.1 },
+    { sel: '.occ-intro',                            dir: 'up',    delay: 0 },
+    { sel: '.occ-card:nth-child(odd)',              dir: 'left',  delay: 0 },
+    { sel: '.occ-card:nth-child(even)',             dir: 'right', delay: 0.08 },
+    { sel: '#trust .sec-lbl',                       dir: 'up',    delay: 0 },
+    { sel: '#trust .sec-title',                     dir: 'up',    delay: 0.1 },
+    { sel: '.trust-card',                           dir: 'up',    delay: 0 },
+    { sel: '#contatti .sec-lbl',                    dir: 'up',    delay: 0 },
+    { sel: '#contatti .sec-title',                  dir: 'up',    delay: 0.1 },
+    { sel: '#contatti .sec-sub',                    dir: 'up',    delay: 0.15 },
+    { sel: '.contact-form',                         dir: 'left',  delay: 0.1 },
+    { sel: '.contact-map',                          dir: 'right', delay: 0.2 },
+    { sel: '.foot-logo-block',                      dir: 'left',  delay: 0 },
+    { sel: '.foot-cols',                            dir: 'right', delay: 0.1 },
   ];
+
+  const dirClass = { up:'sr-up', down:'sr-down', left:'sr-left', right:'sr-right', scale:'sr-scale' };
 
   const items = [];
   targets.forEach(t => {
-    document.querySelectorAll(t.sel).forEach(el => {
-      el.classList.add('sr');
-      items.push({ el, dir: t.dir });
+    document.querySelectorAll(t.sel).forEach((el, idx) => {
+      el.classList.add('sr', dirClass[t.dir] || 'sr-up');
+      const d = (t.delay || 0) + idx * 0.05;
+      el.style.transitionDelay = d + 's';
+      items.push(el);
     });
   });
 
-  function isVisible(el) {
-    const r = el.getBoundingClientRect();
-    return r.top < window.innerHeight * 0.88 && r.bottom > 0;
-  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('sr-vis');
+      } else {
+        e.target.classList.remove('sr-vis');
+      }
+    });
+  }, { threshold: 0.12 });
 
-  function getHidden(dir) {
-    if(dir === 'left') return 'translateX(-50px)';
-    if(dir === 'right') return 'translateX(50px)';
-    return 'translateY(50px)';
-  }
+  items.forEach(el => io.observe(el));
+})();
+</script>
 
-  function update() {
-    items.forEach(({ el, dir }) => {
-      if(isVisible(el)) {
-        el.style.opacity = '1';
-        el.style.transform = 'translate(0,0)';
-        el.style.transition = 'opacity 
+</body>
+</html>
